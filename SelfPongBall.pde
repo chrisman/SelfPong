@@ -9,20 +9,22 @@ class SelfPongBall {
   int posx, posy, diam, pposx, pposy;
   ColliderRect collider;
   DrawLines lignes;
+  PImage img;
   
   SelfPongBall(int _x, int _y){
+    img = loadImage("pinklogo.png");
     posx = _x;
     posy = _y;
     pposx = width/2;
     pposy = height/2;
     vitx = 6;
     vity = 0;
-    diam = 15;
+    diam = 30;
     
     vitesse = 6;
     accel = 1.0005;
     
-    collider = new ColliderRect(posx, posy, diam, diam);
+    collider = new ColliderRect(posx, posy, diam, diam, 0);
     lignes = new DrawLines(posx, posy);
   } 
   
@@ -96,7 +98,8 @@ class SelfPongBall {
   void drawBall(){
     noStroke();
     fill(255, 255, 255);
-    ellipse(posx, posy, diam, diam);
+         
+    image(img, posx, posy, diam, diam);
     
     //collider.drawCollider();
     

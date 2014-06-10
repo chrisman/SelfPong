@@ -1,6 +1,9 @@
 /* OpenProcessing Tweak of *@*http://www.openprocessing.org/sketch/51554*@* */
 /* !do not delete the line above, required for linking your tweak if you upload again */
 /*
+
+<!--Original preface://-->
+
 [ Self - Pong ]
 by Gildas P. / http://www.gildasp.fr/playingwithpixels/
 
@@ -11,12 +14,38 @@ Would like to run this with Kinect controls... don't know when.
 
 [ Abstract - Arkanoid ] coming soon !
 
+<!--End of original preface//-->
 */
+
+/**
+ * Quad Solo Pong
+ * by cb. with thanks to Gildas P.
+ *
+ * TODO
+ *
+ * 1.  Add top and bottom colliders. 
+ * 2.  Add LEFT and RIGHT to keyPressed and keyReleased
+ * 3.  Abstract all instances of vitx, vity. So you can
+ *     can say "Zero forward velocity" to stop up/down paddles from going up
+ *     and right/left paddles from going right.
+ *     - ColliderRect constuctor gains forwardDirection var?
+ * 4.  Better SelfPongPlatform.updatePlatform()?
+ * 5.  (Related) Separate SelfPongPlatform into paddle logic and "game 
+ *     helper" logic. 
+ *     - One collider returned per new SelfPongPlatform.
+ * 6.  Turn the ball into a spinny logo.
+ * 7.  Add other sparkle.
+ * 8.  
+ */
+ 
 SelfPongPlatform platforms;
 SelfPongBall ball;
 ArrayList listeColliders;
 int score1, score2, scoreMax;
 Boolean display_intro, display_youwin;
+String keylock = "";
+
+
 
 void setup(){
   size(640, 480);
@@ -25,7 +54,9 @@ void setup(){
   background(0);
   textAlign(CENTER);
   
-  scoreMax = 10;
+  score1 = 0;
+  score2 = 0;
+  scoreMax = 5;
   display_intro = true;
   display_youwin = false;
   
@@ -34,9 +65,6 @@ void setup(){
   listeColliders = new ArrayList();
   listeColliders.add(platforms.collider1);
   listeColliders.add(platforms.collider2);
-  
-  score1 = 0;
-  score2 = 0;
   
   fill(255, 255, 255);
   noStroke();
@@ -55,12 +83,12 @@ void draw(){
   if(keylock == ""){
     platforms.stopPlatform();
   }
+  
+  
   platforms.updatePlatform();
-      
   ball.updateBall();
   
   ball.lignes.drawLines();
-  
   platforms.drawPlatform();
   ball.drawBall();
   
@@ -87,6 +115,7 @@ void show_intro(){
   //text("Speed up !", width/2, height/2+50);
   text("[ Press Up or Down ]", width/2, height/2+40);
 }
+
 void show_youwin(){
   fill(255, 255, 255, 220);
   rect(width/2, height/2, 250, 150); 
@@ -126,16 +155,13 @@ void restart(){
   score1 = 0;
   score2 = 0;
   ball.vitesse = 6;
-    if(platforms.sens == -1){
-      platforms.sens = 1;
-    } else {
-      platforms.sens = -1;
-    }
+  if(platforms.sens == -1){
+    platforms.sens = 1;
+  } else {
+    platforms.sens = -1;
+  }
   display_youwin = false;
 }
-/////
-
-String keylock = "";
 
 void keyPressed() {
   if (key == CODED) {

@@ -6,12 +6,14 @@ by Gildas P. / http://www.gildasp.fr/playingwithpixels/
 class ColliderRect {
   
   int posx, posy, larg, haut;
+  int forwardDirection;
   
-  ColliderRect(int _x, int _y, int _l, int _h){
+  ColliderRect(int _x, int _y, int _l, int _h, int _f){
     posx = _x;
     posy = _y;
     larg = _l;
     haut = _h;
+    forwardDirection = _f;
   } 
   
   void updateCollider(){  }
@@ -32,7 +34,8 @@ class ColliderRect {
     } else { 
       return false; 
     }
-  }	
+  }
+  
   ArrayList collideRectList (ArrayList objArray){
     Boolean collision = false;
     ArrayList colliders = new ArrayList();
@@ -53,6 +56,13 @@ class ColliderRect {
     // retourne les vecteurs x et y à appliquer à this
     // ainsi que la longuer du vecteur (pour obtenir le vecteur unitaire facilement)
     // (l'autre s'occupera de lui-même)
+    
+    /**
+     * Google translation of the above:
+     * returns the vectors x and y to apply to this and the 
+     * lenght of the vector (for the unit vector easily) 
+     * (the other will take care of itself)
+     */
     float vectx = (posx-obj2.posx)/2;
     float vecty = (posy-obj2.posy)/2;
     float distance = dist(posx, posy, obj2.posx, obj2.posy);
