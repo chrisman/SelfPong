@@ -23,27 +23,21 @@ class SelfPongPlatform {
     
     // Decides who gets regular conrol and who gets
     // inverse controls. sens = forward/backward?
-    float tmp = random(-1, 1);
-    if(tmp>0){
-      sens = 1;
-    } else {
-      sens = -1;
-    }
+    sens = (random(-1, 1) > 0) ? 1 : -1;
     
-    vitbase = 15; // base velocity
-    decel = 0.8;  // rate of deacceleration
-    accel = 3;    // rate of acceleration
+    vitbase = 15;   // base velocity
+    decel   = 0.8;  // rate of deacceleration
+    accel   = 3;    // rate of acceleration
 
-    larg = 10;    // width
-    haut = 100;   // height
+    larg = 10;      // width
+    haut = 100;     // height
     
     collider1 = new ColliderRect(posx, posy, larg, haut, 2);
     collider2 = new ColliderRect(width-posx, height-posy, larg, haut, 2);
-    //collider3 = new ColliderRect(width/2, 30, haut, larg, 1);
-    //collider4 = new ColliderRect(width/2, height-30, haut, larg, 1);
+    collider3 = new ColliderRect(width/2, 30, haut, larg, 1);
+    collider4 = new ColliderRect(width/2, height-30, haut, larg, 1);
   } 
   
-  //  
   void stopPlatform(){
     vitx = 0;
     if(abs(vity)<0.5){ vity = 0; }
@@ -60,6 +54,7 @@ class SelfPongPlatform {
     if(posy>height+haut/2){ posy -= height+haut; }
     
     // update collider boxen
+    // TODO make a separate collider updater method?
     collider1.larg = larg;
     collider1.haut = haut;
     collider1.posx = posx;
@@ -72,7 +67,6 @@ class SelfPongPlatform {
   }
 
   void drawPlatform() {
-    
     // couleur on keypressed
     /*if(abs(vity)>0){
       fill(255, 153, 0);
@@ -91,13 +85,16 @@ class SelfPongPlatform {
     rect(width-posx, height-posy, larg, haut);
     fill(255, 255, 255);
     
+    /**
+     * These two rectangles are in the right place. Figure out
+     * movement and updating from here. (zk/update boxen)
+     */
+
     // 3eme rectangle = top paddle
     rect(width/2, 30, haut, larg);
     
     // 4eme rectangle = bottom paddle
     rect(width/2, height-30, haut, larg);
-    
-
   }
   
   void keyUp(){
