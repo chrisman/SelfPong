@@ -4,7 +4,7 @@
 
 class Platform {
     
-    Platform(int x, int y, int width, int length, int axisofliberty) {
+    Platform(int x, int y, int width, int length, char axisofliberty) {
         return;
 
     }
