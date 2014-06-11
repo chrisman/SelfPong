@@ -35,7 +35,7 @@
  *     - One collider returned per new SelfPongPlatform.
  * 6.  Turn the ball into a spinny logo.
  * 7.  Add other sparkle.
- * 8.  
+ * 8.  Turn the score1, score2 into Score. 
  */
 
 SelfPongPlatform platforms;
@@ -71,6 +71,13 @@ void setup(){
     fill(255, 255, 255);
     noStroke();
     rectMode(CENTER);
+
+    /**
+     * What I want is:
+     * GameHelper game = new GameHelper();
+     * game.addPlatform(x, y, width, length, axisofliberty);
+     * game.addBall(x, y, diam, image);
+     */
 }
 
 void draw(){
@@ -93,8 +100,14 @@ void draw(){
     ball.lignes.drawLines();
     platforms.drawPlatform();
     ball.drawBall();
-
     drawhud(); 
+
+    /**
+     * What I want is:
+     * game.getInput();
+     * game.update();
+     * game.draw();
+     */
 }
 
 void drawhud() {

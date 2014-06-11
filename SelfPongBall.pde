@@ -27,6 +27,10 @@ class SelfPongBall {
     collider = new ColliderRect(posx, posy, diam, diam, 0);
     lignes = new DrawLines(posx, posy);
   } 
+
+  SelfPongBall(int x, int y, int diam, String imgsrc) {
+    return;
+  }
   
   void updateBall(){
     
